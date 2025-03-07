@@ -9,22 +9,18 @@ def extract_price_history(raw_text):
     :return: List of tuples containing parsed historical price data
     """
     if not raw_text:
-        print("❌ Error: No data provided.")
+        print("Error: No data provided.")
         return []
 
     try:
-        # Step 1: Extract only the "rows" section from the text
         match_rows = re.search(
             r'"rows"\s*:\s*\[(.*?)\]\s*,', raw_text, re.DOTALL)
         if not match_rows:
-            print("❌ Error: Could not locate 'rows' section in data.")
+            print("Error: Could not locate 'rows' section in data.")
             return []
 
-        # Extract only the "rows" array content
         rows_text = match_rows.group(1)
-        print("Rows Text: ", rows_text)
-
-        # Step 2: Extract Date and Price using regex
+        # print("Rows Text: ", rows_text)
         row_pattern = re.compile(
             r'Date\((\d{4}), (\d{1,2}), (\d{1,2})\).*?(\d+), "f": "\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)"')
         matches = row_pattern.findall(rows_text)
@@ -39,7 +35,8 @@ def extract_price_history(raw_text):
         return history
 
     except Exception as e:
-        print(f"⚠️ Error extracting historical price data: {e}")
+        # error log
+        print(f"Error extracting historical price data: {e}")
         return []
 
 
@@ -47,5 +44,7 @@ raw_text = '{"cols": [{"type": "date" ,"id": "Date" ,"label": "Date" }, {"type":
 
 history = extract_price_history(raw_text)
 
-# Print the extracted historical price data
-print("\n✅ Extracted Historical Price Data:\n", history)
+
+print("\nExtracted Historical Price Data:\n", history)
+
+# TODO - Should i save csv here or in preprocess_tabular.py?
