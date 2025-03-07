@@ -1,0 +1,18 @@
+# Core Dependencies
+requests
+beautifulsoup4
+pandas
+numpy
+scikit-learn
+xgboost
+
+# Visualization & Analysis
+matplotlib
+seaborn
+
+# Logging & Utilities
+loguru
+
+# Jupyter Notebook (if needed for testing)
+notebook
+jupyterlab
